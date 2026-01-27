@@ -340,6 +340,27 @@ export default function Booking() {
                     </div>
                   </div>
 
+                  {/* Special Requests */}
+                  <div className="border-t border-[#1B1B1B]/10 pt-8 mb-8">
+                    <h3 className="text-sm uppercase tracking-widest text-[#1B1B1B] mb-6 font-manrope">
+                      Special Requests (Optional)
+                    </h3>
+
+                    <div>
+                      <textarea
+                        data-testid="special-requests-input"
+                        value={formData.specialRequests}
+                        onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
+                        placeholder="e.g., Birthday celebration, Valentine's day, extra drinks"
+                        rows="4"
+                        className="w-full bg-transparent border-b-2 border-[#1B1B1B]/20 focus:border-[#B89D62] px-0 py-4 outline-none transition-colors placeholder:text-[#1B1B1B]/40 font-manrope text-[#1B1B1B] resize-none"
+                      ></textarea>
+                      <p className="text-xs text-[#2C2C2C] mt-2 font-manrope">
+                        Let us know if you have any special requests or needs for your ride.
+                      </p>
+                    </div>
+                  </div>
+
                   <button
                     type="submit"
                     data-testid="proceed-to-payment-btn"
