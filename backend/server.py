@@ -239,7 +239,12 @@ async def create_checkout_session(checkout_req: CheckoutRequest, request: Reques
         metadata={
             "booking_id": checkout_req.booking_id,
             "customer_email": booking['email'],
-            "customer_name": booking['full_name']
+            "customer_name": booking['full_name'],
+            "total_price": str(booking['total_price']),
+            "deposit_amount": str(deposit_amount),
+            "remaining_balance": str(booking['total_price'] - deposit_amount),
+            "service_type": "hourly_chauffeur",
+            "payment_type": "50_percent_deposit"
         }
     )
     
