@@ -164,7 +164,8 @@ export default function Booking() {
         phone: formData.phone,
         duration_hours: calculation.billingDuration, // Use billing duration (min 2 hours)
         total_price: calculation.totalPrice,
-        deposit_amount: calculation.depositAmount
+        deposit_amount: calculation.depositAmount,
+        special_requests: formData.specialRequests || null
       };
 
       const bookingResponse = await axios.post(`${API}/bookings`, bookingData);
