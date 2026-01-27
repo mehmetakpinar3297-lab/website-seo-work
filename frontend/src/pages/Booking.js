@@ -7,7 +7,7 @@ import { Calendar, Clock, MapPin, DollarSign, CreditCard } from 'lucide-react';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const HOURLY_RATE = 100;
+const HOURLY_RATE = 75;
 const MIN_HOURS = 2;
 
 // Generate time slots in 15-minute intervals
