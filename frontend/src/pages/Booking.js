@@ -110,11 +110,14 @@ export default function Booking() {
   useEffect(() => {
     if (formData.startTime && formData.endTime) {
       const duration = calculateDuration(formData.startTime, formData.endTime);
-      const total = duration * HOURLY_RATE;
+      // Enforce minimum 2 hours for billing
+      const billingDuration = Math.max(MIN_HOURS, duration);
+      const total = billingDuration * HOURLY_RATE;
       const deposit = total * 0.5;
 
       setCalculation({
         durationHours: duration,
+        billingDuration: billingDuration,
         totalPrice: total,
         depositAmount: deposit
       });
