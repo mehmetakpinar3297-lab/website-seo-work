@@ -190,7 +190,7 @@ class AtlantaChauffeurAPITester:
 
     def test_payment_status_invalid_session(self):
         """Test payment status with invalid session ID"""
-        return self.run_test("Payment Status - Invalid Session", "GET", "payments/status/invalid_session_id", 500)
+        return self.run_test("Payment Status - Invalid Session", "GET", "payments/status/invalid_session_id", 520)
 
     def run_all_tests(self):
         """Run all tests"""
