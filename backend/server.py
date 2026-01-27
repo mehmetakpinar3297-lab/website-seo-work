@@ -45,6 +45,7 @@ class BookingCreate(BaseModel):
     duration_hours: float
     total_price: float
     deposit_amount: float
+    special_requests: Optional[str] = None
 
 class Booking(BaseModel):
     model_config = ConfigDict(extra="ignore")
