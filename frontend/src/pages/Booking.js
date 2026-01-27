@@ -436,6 +436,17 @@ export default function Booking() {
                   </div>
                 </div>
 
+                {formData.specialRequests && (
+                  <div className="mb-8 pb-8 border-b border-[#1B1B1B]/10">
+                    <h4 className="text-xs uppercase tracking-widest text-[#1B1B1B] mb-3 font-manrope">
+                      Special Requests
+                    </h4>
+                    <p className="text-sm text-[#2C2C2C] font-manrope italic">
+                      "{formData.specialRequests}"
+                    </p>
+                  </div>
+                )}
+
                 <div className="text-xs text-[#2C2C2C] space-y-2 font-manrope">
                   <p>• Minimum booking is 2 hours</p>
                   <p>• Cancellation: 24 hours notice required</p>
