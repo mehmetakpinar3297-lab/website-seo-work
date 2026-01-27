@@ -128,12 +128,6 @@ export default function Booking() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validation
-    if (calculation.durationHours < MIN_HOURS) {
-      toast.error(`Minimum booking duration is ${MIN_HOURS} hours`);
-      return;
-    }
-
     if (!formData.date || !formData.startTime || !formData.endTime) {
       toast.error('Please fill in all required fields');
       return;
@@ -157,7 +151,7 @@ export default function Booking() {
         return;
       }
 
-      // Create booking
+      // Create booking with billing duration (minimum 2 hours enforced)
       const bookingData = {
         date: formData.date,
         start_time: formData.startTime,
@@ -167,7 +161,7 @@ export default function Booking() {
         full_name: formData.fullName,
         email: formData.email,
         phone: formData.phone,
-        duration_hours: calculation.durationHours,
+        duration_hours: calculation.billingDuration, // Use billing duration (min 2 hours)
         total_price: calculation.totalPrice,
         deposit_amount: calculation.depositAmount
       };
