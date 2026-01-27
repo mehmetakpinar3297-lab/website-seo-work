@@ -271,14 +271,12 @@ export default function Booking() {
                       <MapPin className="w-4 h-4 mr-2 text-[#B89D62]" />
                       Pickup Location
                     </label>
-                    <input
-                      type="text"
-                      data-testid="pickup-location-input"
+                    <MapboxAutocomplete
+                      id="pickup-location"
                       value={formData.pickupLocation}
-                      onChange={(e) => setFormData({ ...formData, pickupLocation: e.target.value })}
+                      onChange={(value) => setFormData({ ...formData, pickupLocation: value })}
                       placeholder="Enter pickup address in Atlanta"
-                      required
-                      className="w-full bg-transparent border-b-2 border-[#1B1B1B]/20 focus:border-[#B89D62] px-0 py-4 outline-none transition-colors placeholder:text-[#1B1B1B]/40 font-manrope text-[#1B1B1B]"
+                      testId="pickup-location-input"
                     />
                   </div>
 
@@ -287,14 +285,12 @@ export default function Booking() {
                       <MapPin className="w-4 h-4 mr-2 text-[#B89D62]" />
                       Drop-off Location
                     </label>
-                    <input
-                      type="text"
-                      data-testid="dropoff-location-input"
+                    <MapboxAutocomplete
+                      id="dropoff-location"
                       value={formData.dropoffLocation}
-                      onChange={(e) => setFormData({ ...formData, dropoffLocation: e.target.value })}
+                      onChange={(value) => setFormData({ ...formData, dropoffLocation: value })}
                       placeholder="Enter drop-off address in Atlanta"
-                      required
-                      className="w-full bg-transparent border-b-2 border-[#1B1B1B]/20 focus:border-[#B89D62] px-0 py-4 outline-none transition-colors placeholder:text-[#1B1B1B]/40 font-manrope text-[#1B1B1B]"
+                      testId="dropoff-location-input"
                     />
                   </div>
 
