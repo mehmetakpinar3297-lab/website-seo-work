@@ -197,7 +197,7 @@ export default function Booking() {
               Book Your Ride
             </h1>
             <p className="text-lg text-[#2C2C2C] font-manrope">
-              Reserve your hourly chauffeur service. 2-hour minimum, $75 per hour.
+              Reserve your luxury chauffeur service by the hour. 2-hour minimum, $75 per hour.
             </p>
           </div>
 
