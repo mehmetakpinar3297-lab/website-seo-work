@@ -91,15 +91,15 @@ export default function Home() {
                 Our Fleet
               </div>
               <h2 className="font-playfair text-5xl md:text-6xl text-[#1B1B1B] tracking-tight mb-8">
-                Luxury That Moves You
+                2025 Toyota Sienna
               </h2>
               <p className="text-lg text-[#2C2C2C] leading-relaxed mb-6 font-manrope">
-                Our meticulously maintained Toyota Sienna fleet offers the perfect blend of comfort, space, and sophistication. Each vehicle is professionally detailed before every service.
+                Our meticulously maintained 2025 Toyota Sienna fleet offers the perfect blend of comfort, space, and sophistication. Each vehicle is professionally detailed before every service.
               </p>
               <ul className="space-y-4 mb-12">
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-[#B89D62] mt-2 mr-4"></div>
-                  <span className="text-[#2C2C2C] font-manrope">Premium leather seating for up to 6 passengers</span>
+                  <span className="text-[#2C2C2C] font-manrope">Premium leather seating for up to 7 passengers</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-[#B89D62] mt-2 mr-4"></div>
@@ -109,21 +109,47 @@ export default function Home() {
                   <div className="w-2 h-2 bg-[#B89D62] mt-2 mr-4"></div>
                   <span className="text-[#2C2C2C] font-manrope">Complimentary bottled water and mints</span>
                 </li>
+                <li className="flex items-start">
+                  <div className="w-2 h-2 bg-[#B89D62] mt-2 mr-4"></div>
+                  <span className="text-[#2C2C2C] font-manrope">Spacious cargo area for luggage</span>
+                </li>
               </ul>
-              <Link
-                to="/services"
-                data-testid="explore-services-btn"
-                className="inline-block border border-[#1B1B1B] text-[#1B1B1B] px-10 py-4 uppercase tracking-widest text-sm font-manrope font-medium hover:bg-[#1B1B1B] hover:text-white transition-all duration-300"
-              >
-                Explore Services
-              </Link>
+              <div className="space-y-4">
+                <Link
+                  to="/booking"
+                  data-testid="book-ride-fleet-btn"
+                  className="inline-block bg-[#1B1B1B] text-white px-16 py-6 text-lg uppercase tracking-widest font-manrope font-medium hover:bg-[#2C2C2C] transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  Book Your Ride
+                </Link>
+                <div className="text-sm text-[#2C2C2C] font-manrope">
+                  Starting at $75/hour • 2-hour minimum
+                </div>
+              </div>
             </div>
-            <div>
-              <img
-                src="https://images.unsplash.com/photo-1654704089788-5ac8eb863818?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwxfHxUb3lvdGElMjBTaWVubmElMjBsdXh1cnklMjBibGFjayUyMGV4dGVyaW9yfGVufDB8fHx8MTc2OTUyOTYzNXww&ixlib=rb-4.1.0&q=85"
-                alt="Luxury Toyota Sienna"
-                className="w-full h-auto shadow-[0_20px_40px_-10px_rgba(27,27,27,0.1)]"
-              />
+            <div className="space-y-6">
+              <div className="relative">
+                <img
+                  src="https://images.pexels.com/photos/20007188/pexels-photo-20007188.jpeg"
+                  alt="2025 Black Toyota Sienna - Front View"
+                  className="w-full h-auto shadow-[0_20px_40px_-10px_rgba(27,27,27,0.15)]"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-[#B89D62] text-white px-6 py-3 font-manrope text-sm uppercase tracking-widest">
+                  2025 Model
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <img
+                  src="https://images.unsplash.com/photo-1716878438300-46c79ffc208c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjYXIlMjBsZWF0aGVyJTIwaW50ZXJpb3IlMjBiZWlnZSUyMHNlYXRzJTIwcHJlbWl1bXxlbnwwfHx8fDE3Njk1MzE5MDJ8MA&ixlib=rb-4.1.0&q=85"
+                  alt="Premium Leather Interior"
+                  className="w-full h-48 object-cover shadow-md"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1583574004402-92cdbaa3528f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwzfHxsdXh1cnklMjBjYXIlMjBsZWF0aGVyJTIwaW50ZXJpb3IlMjBiZWlnZSUyMHNlYXRzJTIwcHJlbWl1bXxlbnwwfHx8fDE3Njk1MzE5MDJ8MA&ixlib=rb-4.1.0&q=85"
+                  alt="Spacious Interior Seating"
+                  className="w-full h-48 object-cover shadow-md"
+                />
+              </div>
             </div>
           </div>
         </div>
