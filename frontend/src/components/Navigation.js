@@ -18,6 +18,20 @@ export default function Navigation() {
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/90 border-b border-[#1B1B1B]/10">
+      {/* Top Bar with Contact Info */}
+      <div className="hidden md:block bg-[#1B1B1B] py-2">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-end items-center space-x-6 text-sm">
+          <a href="tel:+19298678846" className="text-white/80 hover:text-white transition-colors font-manrope flex items-center">
+            <Phone className="w-3 h-3 mr-1.5" />
+            (929) 867-8846
+          </a>
+          <a href="mailto:info@atlantahourlyride.com" className="text-white/80 hover:text-white transition-colors font-manrope flex items-center">
+            <Mail className="w-3 h-3 mr-1.5" />
+            info@atlantahourlyride.com
+          </a>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
