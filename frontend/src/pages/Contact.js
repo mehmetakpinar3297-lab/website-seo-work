@@ -132,8 +132,8 @@ export default function Contact() {
                       <div className="text-sm uppercase tracking-widest text-[#B89D62] mb-1 font-manrope">
                         Phone
                       </div>
-                      <a href="tel:+14045551234" className="text-lg text-[#1B1B1B] font-manrope hover:text-[#B89D62] transition-colors">
-                        (404) 555-1234
+                      <a href="tel:+19298678846" className="text-lg text-[#1B1B1B] font-manrope hover:text-[#B89D62] transition-colors">
+                        (929) 867-8846
                       </a>
                       <p className="text-sm text-[#2C2C2C] mt-1 font-manrope">
                         Available 24/7
@@ -149,8 +149,8 @@ export default function Contact() {
                       <div className="text-sm uppercase tracking-widest text-[#B89D62] mb-1 font-manrope">
                         Email
                       </div>
-                      <a href="mailto:info@atlantaluxurychauffeur.com" className="text-lg text-[#1B1B1B] font-manrope hover:text-[#B89D62] transition-colors break-all">
-                        info@atlantaluxurychauffeur.com
+                      <a href="mailto:info@atlantahourlyride.com" className="text-lg text-[#1B1B1B] font-manrope hover:text-[#B89D62] transition-colors break-all">
+                        info@atlantahourlyride.com
                       </a>
                       <p className="text-sm text-[#2C2C2C] mt-1 font-manrope">
                         Response within 24 hours
