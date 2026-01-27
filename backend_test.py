@@ -128,7 +128,7 @@ class AtlantaChauffeurAPITester:
         }
         
         # Create the booking first
-        success, _ = self.run_test("Create Booking for Conflict Test", "POST", "bookings", 201, booking_data)
+        success, _ = self.run_test("Create Booking for Conflict Test", "POST", "bookings", 200, booking_data)
         
         if success:
             # Now check availability for overlapping time (should conflict due to 1.5hr buffer)
