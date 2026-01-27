@@ -359,16 +359,34 @@ export default function Booking() {
 
                 <div className="space-y-6 mb-8">
                   <div className="flex justify-between items-center pb-4 border-b border-[#1B1B1B]/10">
-                    <span className="text-[#2C2C2C] font-manrope">Duration</span>
+                    <span className="text-[#2C2C2C] font-manrope">Selected Duration</span>
                     <span className="text-[#1B1B1B] font-manrope font-medium" data-testid="duration-display">
                       {calculation.durationHours.toFixed(2)} hrs
                     </span>
                   </div>
 
+                  {calculation.durationHours > 0 && calculation.durationHours < MIN_HOURS && (
+                    <div className="bg-[#B89D62]/10 border-l-2 border-[#B89D62] p-4 -mt-2">
+                      <p className="text-sm text-[#1B1B1B] font-manrope font-medium">
+                        Minimum 2 hours enforced
+                      </p>
+                      <p className="text-xs text-[#2C2C2C] mt-1 font-manrope">
+                        Billing: {calculation.billingDuration} hours
+                      </p>
+                    </div>
+                  )}
+
                   <div className="flex justify-between items-center pb-4 border-b border-[#1B1B1B]/10">
                     <span className="text-[#2C2C2C] font-manrope">Rate</span>
                     <span className="text-[#1B1B1B] font-manrope font-medium">
                       ${HOURLY_RATE}/hour
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between items-center pb-4 border-b border-[#1B1B1B]/10">
+                    <span className="text-[#2C2C2C] font-manrope">Billing Duration</span>
+                    <span className="text-[#1B1B1B] font-manrope font-medium">
+                      {calculation.billingDuration.toFixed(2)} hrs
                     </span>
                   </div>
 
@@ -395,16 +413,8 @@ export default function Booking() {
                   </div>
                 </div>
 
-                {calculation.durationHours < MIN_HOURS && calculation.durationHours > 0 && (
-                  <div className="bg-red-50 border-l-2 border-red-500 p-4 mb-6">
-                    <p className="text-sm text-red-800 font-manrope">
-                      Minimum booking is {MIN_HOURS} hours
-                    </p>
-                  </div>
-                )}
-
                 <div className="text-xs text-[#2C2C2C] space-y-2 font-manrope">
-                  <p>• 2-hour minimum booking</p>
+                  <p>• Minimum booking is 2 hours</p>
                   <p>• Cancellation: 24 hours notice required</p>
                   <p>• Gratuity not included</p>
                 </div>
