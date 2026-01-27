@@ -68,14 +68,14 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Phone className="w-4 h-4 text-[#B89D62] mr-3 mt-1 flex-shrink-0" />
-                <a href="tel:+14045551234" className="text-white/70 hover:text-white transition-colors font-manrope text-sm">
-                  (404) 555-1234
+                <a href="tel:+19298678846" className="text-white/70 hover:text-white transition-colors font-manrope text-sm">
+                  (929) 867-8846
                 </a>
               </li>
               <li className="flex items-start">
                 <Mail className="w-4 h-4 text-[#B89D62] mr-3 mt-1 flex-shrink-0" />
-                <a href="mailto:info@atlantaluxurychauffeur.com" className="text-white/70 hover:text-white transition-colors font-manrope text-sm break-all">
-                  info@atlantaluxurychauffeur.com
+                <a href="mailto:info@atlantahourlyride.com" className="text-white/70 hover:text-white transition-colors font-manrope text-sm break-all">
+                  info@atlantahourlyride.com
                 </a>
               </li>
             </ul>
