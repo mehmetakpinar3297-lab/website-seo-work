@@ -78,7 +78,7 @@ class ContactSubmission(BaseModel):
 class ContactCreate(BaseModel):
     name: str
     email: EmailStr
-    phone: Optional[str] = None
+    phone: str
     message: str
 
 class PaymentTransaction(BaseModel):
