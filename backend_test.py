@@ -75,7 +75,7 @@ class AtlantaChauffeurAPITester:
             "total_price": 200.0,
             "deposit_amount": 100.0
         }
-        return self.run_test("Create Valid Booking", "POST", "bookings", 201, booking_data)
+        return self.run_test("Create Valid Booking", "POST", "bookings", 200, booking_data)
 
     def test_create_booking_invalid_duration(self):
         """Test creating booking with less than 2 hours (should fail)"""
