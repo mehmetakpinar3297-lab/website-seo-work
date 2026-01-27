@@ -62,6 +62,7 @@ class Booking(BaseModel):
     duration_hours: float
     total_price: float
     deposit_amount: float
+    special_requests: Optional[str] = None
     payment_status: str = "pending"
     session_id: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
