@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import ChatWidget from './components/ChatWidget';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Booking from './pages/Booking';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
+        <ChatWidget />
         <Toaster position="top-right" richColors />
       </BrowserRouter>
     </div>
