@@ -341,7 +341,7 @@ export default function Booking() {
                   <button
                     type="submit"
                     data-testid="proceed-to-payment-btn"
-                    disabled={loading || calculation.durationHours < MIN_HOURS}
+                    disabled={loading || !formData.date || !formData.startTime || !formData.endTime}
                     className="w-full bg-[#1B1B1B] text-white px-10 py-5 uppercase tracking-widest text-sm font-manrope font-medium hover:bg-[#2C2C2C] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Processing...' : 'Proceed to Payment'}
