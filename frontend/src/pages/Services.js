@@ -39,7 +39,7 @@ export default function Services() {
                 <div className="border-l-2 border-[#B89D62] pl-6 mb-8">
                   <div className="space-y-3">
                     <p className="text-[#2C2C2C] font-manrope"><strong>Minimum:</strong> 2 hours</p>
-                    <p className="text-[#2C2C2C] font-manrope"><strong>Rate:</strong> $100 per hour</p>
+                    <p className="text-[#2C2C2C] font-manrope"><strong>Rate:</strong> $75 per hour</p>
                     <p className="text-[#2C2C2C] font-manrope"><strong>Deposit:</strong> 50% upfront, balance due after service</p>
                     <p className="text-[#2C2C2C] font-manrope"><strong>Availability:</strong> 24/7, book in 15-minute increments</p>
                   </div>
