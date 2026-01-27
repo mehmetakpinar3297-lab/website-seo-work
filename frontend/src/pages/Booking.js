@@ -44,6 +44,7 @@ export default function Booking() {
 
   const [calculation, setCalculation] = useState({
     durationHours: 0,
+    billingDuration: 0,
     totalPrice: 0,
     depositAmount: 0
   });
