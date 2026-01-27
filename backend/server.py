@@ -129,9 +129,12 @@ def minutes_to_time(minutes: int) -> str:
 # Booking Routes
 @api_router.post("/bookings", response_model=Booking, status_code=201)
 async def create_booking(booking_input: BookingCreate):
-    # Validate minimum 2 hours
+    # Enforce minimum 2 hours for billing (backend validation)
     if booking_input.duration_hours < 2:
-        raise HTTPException(status_code=400, detail="Minimum booking duration is 2 hours")
+        # Frontend should have already enforced this, but double-check
+        booking_input.duration_hours = 2
+        booking_input.total_price = 2 * 75  # Recalculate with minimum
+        booking_input.deposit_amount = booking_input.total_price * 0.5
     
     # Create booking object
     booking_dict = booking_input.model_dump()
