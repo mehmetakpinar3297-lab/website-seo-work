@@ -187,7 +187,7 @@ async def check_availability(date: str, start_time: str, end_time: str):
 
 
 # Contact Routes
-@api_router.post("/contact", response_model=ContactSubmission)
+@api_router.post("/contact", response_model=ContactSubmission, status_code=201)
 async def create_contact(contact_input: ContactCreate):
     contact_dict = contact_input.model_dump()
     contact_obj = ContactSubmission(**contact_dict)
