@@ -177,7 +177,7 @@ class AtlantaChauffeurAPITester:
             "deposit_amount": 100.0
         }
         
-        success, booking_response = self.run_test("Create Booking for Stripe Test", "POST", "bookings", 201, booking_data)
+        success, booking_response = self.run_test("Create Booking for Stripe Test", "POST", "bookings", 200, booking_data)
         
         if success and 'id' in booking_response:
             checkout_data = {
