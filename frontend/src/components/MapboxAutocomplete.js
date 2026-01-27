@@ -72,10 +72,17 @@ const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId }) => {
     const initializeGeocoder = () => {
       // Double-check everything is ready
       if (!containerRef.current || geocoderRef.current || !window.mapboxgl || !window.MapboxGeocoder) {
+        console.warn('Mapbox initialization skipped:', {
+          hasContainer: !!containerRef.current,
+          hasGeocoder: !!geocoderRef.current,
+          hasMapboxGL: !!window.mapboxgl,
+          hasMapboxGeocoder: !!window.MapboxGeocoder
+        });
         return;
       }
 
       try {
+        console.log(`Initializing Mapbox geocoder for ${id}`);
         window.mapboxgl.accessToken = MAPBOX_TOKEN;
 
         const geocoder = new window.MapboxGeocoder({
@@ -95,15 +102,22 @@ const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId }) => {
         });
 
         geocoder.on('result', (e) => {
+          console.log(`${id} - Address selected:`, e.result.place_name);
           onChange(e.result.place_name);
         });
 
         geocoder.on('clear', () => {
+          console.log(`${id} - Input cleared`);
           onChange('');
+        });
+
+        geocoder.on('error', (e) => {
+          console.error(`${id} - Geocoder error:`, e);
         });
 
         geocoder.addTo(containerRef.current);
         geocoderRef.current = geocoder;
+        console.log(`${id} - Geocoder successfully initialized`);
 
         // Set initial value if exists
         if (value) {
@@ -111,6 +125,7 @@ const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId }) => {
             const input = containerRef.current?.querySelector('input');
             if (input) {
               input.value = value;
+              console.log(`${id} - Initial value set:`, value);
             }
           }, 100);
         }
@@ -121,7 +136,7 @@ const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId }) => {
         }, 100);
 
       } catch (error) {
-        console.error('Error initializing geocoder:', error);
+        console.error(`${id} - Error initializing geocoder:`, error);
         loadingRef.current = false;
       }
     };
