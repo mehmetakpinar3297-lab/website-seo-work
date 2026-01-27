@@ -39,7 +39,8 @@ export default function Booking() {
     dropoffLocation: '',
     fullName: '',
     email: '',
-    phone: ''
+    phone: '',
+    specialRequests: ''
   });
 
   const [calculation, setCalculation] = useState({
