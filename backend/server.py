@@ -127,7 +127,7 @@ def minutes_to_time(minutes: int) -> str:
 
 
 # Booking Routes
-@api_router.post("/bookings", response_model=Booking)
+@api_router.post("/bookings", response_model=Booking, status_code=201)
 async def create_booking(booking_input: BookingCreate):
     # Validate minimum 2 hours
     if booking_input.duration_hours < 2:
