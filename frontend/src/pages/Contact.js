@@ -84,7 +84,8 @@ export default function Contact() {
                     data-testid="contact-phone-input"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="Phone Number (Optional)"
+                    placeholder="Phone Number"
+                    required
                     className="w-full bg-transparent border-b-2 border-[#1B1B1B]/20 focus:border-[#B89D62] px-0 py-4 outline-none transition-colors placeholder:text-[#1B1B1B]/40 font-manrope text-[#1B1B1B]"
                   />
                 </div>
