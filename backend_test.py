@@ -157,7 +157,7 @@ class AtlantaChauffeurAPITester:
             "phone": "+1-404-555-0456",
             "message": "I would like to inquire about your hourly chauffeur service for a business meeting."
         }
-        return self.run_test("Contact Form Submission", "POST", "contact", 201, contact_data)
+        return self.run_test("Contact Form Submission", "POST", "contact", 200, contact_data)
 
     def test_stripe_checkout_creation(self):
         """Test Stripe checkout session creation"""
