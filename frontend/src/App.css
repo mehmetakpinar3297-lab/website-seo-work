@@ -65,3 +65,106 @@ textarea:focus {
 ::-webkit-scrollbar-thumb:hover {
   background: #9A8252;
 }
+
+/* Mapbox Geocoder Custom Styling */
+.mapboxgl-ctrl-geocoder {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  font-family: 'Manrope', sans-serif !important;
+}
+
+.mapboxgl-ctrl-geocoder--input {
+  width: 100% !important;
+  border: none !important;
+  border-bottom: 2px solid rgba(27, 27, 27, 0.2) !important;
+  border-radius: 0 !important;
+  padding: 16px 0 !important;
+  font-size: 16px !important;
+  font-family: 'Manrope', sans-serif !important;
+  background-color: transparent !important;
+  color: #1B1B1B !important;
+}
+
+.mapboxgl-ctrl-geocoder--input:focus {
+  border-bottom-color: #B89D62 !important;
+  outline: none !important;
+}
+
+.mapboxgl-ctrl-geocoder--input::placeholder {
+  color: rgba(27, 27, 27, 0.4) !important;
+}
+
+/* Mapbox Suggestions Dropdown */
+.mapboxgl-ctrl-geocoder .suggestions {
+  background-color: white !important;
+  border: 1px solid rgba(27, 27, 27, 0.1) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 4px 12px rgba(27, 27, 27, 0.1) !important;
+  margin-top: 4px !important;
+  font-family: 'Manrope', sans-serif !important;
+  z-index: 1000 !important;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions-wrapper {
+  z-index: 1000 !important;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion {
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+  color: #1B1B1B !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion:hover,
+.mapboxgl-ctrl-geocoder--suggestion.active {
+  background-color: #F5F5F0 !important;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion-title {
+  font-weight: 500 !important;
+  color: #1B1B1B !important;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion-address {
+  font-size: 12px !important;
+  color: #2C2C2C !important;
+  margin-top: 2px !important;
+}
+
+/* Mapbox Icon Styling */
+.mapboxgl-ctrl-geocoder--icon {
+  fill: #B89D62 !important;
+}
+
+.mapboxgl-ctrl-geocoder--icon-search {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.mapboxgl-ctrl-geocoder--button {
+  background-color: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 8px !important;
+}
+
+.mapboxgl-ctrl-geocoder--icon-close {
+  width: 16px !important;
+  height: 16px !important;
+  fill: #1B1B1B !important;
+}
+
+.mapboxgl-ctrl-geocoder--icon-loading {
+  fill: #B89D62 !important;
+}
+
+/* Powered by Mapbox - hide or style */
+.mapboxgl-ctrl-geocoder .mapbox-gl-geocoder--powered-by {
+  display: none !important;
+}
+
