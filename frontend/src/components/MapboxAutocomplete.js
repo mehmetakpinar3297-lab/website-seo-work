@@ -4,176 +4,181 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoibWVobWV0MzI5NyIsImEiOiJjbWt4NzlkNGgwNzBjM2RweHo
 
 const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId }) => {
   const containerRef = useRef(null);
-  const geocoderRef = useRef(null);
-  const [useRegularInput, setUseRegularInput] = useState(false);
-  const [inputValue, setInputValue] = useState(value || '');
+  const inputRef = useRef(null);
+  const [showFallback, setShowFallback] = useState(false);
 
   useEffect(() => {
-    // If we're using regular input, don't initialize Mapbox
-    if (useRegularInput) return;
+    let geocoder = null;
 
-    // Set timeout to fallback to regular input if Mapbox doesn't load
-    const fallbackTimeout = setTimeout(() => {
-      if (!geocoderRef.current) {
-        console.warn(`${id} - Mapbox failed to load, using regular input`);
-        setUseRegularInput(true);
-      }
-    }, 5000); // 5 second timeout
-
-    const initMapbox = async () => {
-      if (!containerRef.current) return;
-
+    const loadMapboxLibraries = async () => {
       try {
-        // Load styles
-        if (!document.querySelector('link[href*="mapbox-gl.css"]')) {
+        // Load CSS
+        if (!document.getElementById('mapbox-gl-css')) {
           const link = document.createElement('link');
+          link.id = 'mapbox-gl-css';
           link.rel = 'stylesheet';
-          link.href = 'https://api.mapbox.com/mapbox-gl-js/v2.20.0/mapbox-gl.css';
+          link.href = 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css';
           document.head.appendChild(link);
         }
 
-        if (!document.querySelector('link[href*="mapbox-gl-geocoder.css"]')) {
+        if (!document.getElementById('mapbox-geocoder-css')) {
           const geocoderCSS = document.createElement('link');
+          geocoderCSS.id = 'mapbox-geocoder-css';
           geocoderCSS.rel = 'stylesheet';
           geocoderCSS.href = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css';
           document.head.appendChild(geocoderCSS);
         }
 
-        // Load Mapbox GL
+        // Load Mapbox GL JS
         if (!window.mapboxgl) {
           await new Promise((resolve, reject) => {
             const script = document.createElement('script');
-            script.src = 'https://api.mapbox.com/mapbox-gl-js/v2.20.0/mapbox-gl.js';
+            script.src = 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js';
+            script.async = true;
             script.onload = resolve;
-            script.onerror = () => {
-              console.error('Failed to load Mapbox GL');
-              setUseRegularInput(true);
-              reject();
-            };
+            script.onerror = reject;
             document.body.appendChild(script);
           });
         }
 
-        // Load Geocoder
+        // Load Geocoder Plugin
         if (!window.MapboxGeocoder) {
           await new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js';
+            script.async = true;
             script.onload = resolve;
-            script.onerror = () => {
-              console.error('Failed to load Mapbox Geocoder');
-              setUseRegularInput(true);
-              reject();
-            };
+            script.onerror = reject;
             document.body.appendChild(script);
           });
         }
 
-        // Initialize geocoder
-        if (window.mapboxgl && window.MapboxGeocoder && containerRef.current && !geocoderRef.current) {
-          window.mapboxgl.accessToken = MAPBOX_TOKEN;
+        // Wait a bit for libraries to be ready
+        await new Promise(resolve => setTimeout(resolve, 100));
 
-          const geocoder = new window.MapboxGeocoder({
-            accessToken: MAPBOX_TOKEN,
-            mapboxgl: window.mapboxgl,
-            placeholder: placeholder,
-            proximity: {
-              longitude: -84.355350,
-              latitude: 33.812713
-            },
-            bbox: [-85.605165, 32.839052, -83.109869, 35.000771],
-            countries: 'us',
-            types: 'address,poi',
-            marker: false
-          });
+        if (!window.mapboxgl || !window.MapboxGeocoder) {
+          throw new Error('Mapbox libraries not loaded');
+        }
 
+        // Initialize
+        window.mapboxgl.accessToken = MAPBOX_TOKEN;
+
+        geocoder = new window.MapboxGeocoder({
+          accessToken: MAPBOX_TOKEN,
+          types: 'address,poi',
+          countries: 'us',
+          proximity: {
+            longitude: -84.355350,
+            latitude: 33.812713
+          },
+          bbox: [-85.605165, 32.839052, -83.109869, 35.000771],
+          placeholder: placeholder,
+          autocomplete: true,
+          minLength: 2,
+          limit: 5
+        });
+
+        // Add to container
+        if (containerRef.current) {
+          geocoder.addTo(containerRef.current);
+
+          // Handle result selection
           geocoder.on('result', (e) => {
-            const address = e.result.place_name;
-            setInputValue(address);
-            onChange(address);
+            onChange(e.result.place_name);
           });
 
           geocoder.on('clear', () => {
-            setInputValue('');
             onChange('');
           });
 
-          geocoder.addTo(containerRef.current);
-          geocoderRef.current = geocoder;
-
-          clearTimeout(fallbackTimeout);
-
-          // Style the input
-          setTimeout(() => {
-            const input = containerRef.current?.querySelector('.mapboxgl-ctrl-geocoder--input');
+          // Set initial value
+          if (value) {
+            const input = containerRef.current.querySelector('input');
             if (input) {
+              input.value = value;
+            }
+          }
+
+          // Apply custom styling
+          setTimeout(() => {
+            const input = containerRef.current.querySelector('.mapboxgl-ctrl-geocoder--input');
+            const container = containerRef.current.querySelector('.mapboxgl-ctrl-geocoder');
+            
+            if (input) {
+              input.setAttribute('data-testid', testId);
               input.style.width = '100%';
+              input.style.fontSize = '16px';
+              input.style.fontFamily = 'Manrope, sans-serif';
+              input.style.padding = '16px 0px';
               input.style.border = 'none';
               input.style.borderBottom = '2px solid rgba(27, 27, 27, 0.2)';
               input.style.borderRadius = '0';
-              input.style.padding = '16px 0';
-              input.style.fontSize = '16px';
-              input.style.fontFamily = 'Manrope, sans-serif';
               input.style.backgroundColor = 'transparent';
-              input.style.outline = 'none';
-              input.setAttribute('data-testid', testId);
+              input.style.color = '#1B1B1B';
+              
+              input.addEventListener('focus', () => {
+                input.style.borderBottomColor = '#B89D62';
+              });
+              
+              input.addEventListener('blur', () => {
+                input.style.borderBottomColor = 'rgba(27, 27, 27, 0.2)';
+              });
             }
-
-            const container = containerRef.current?.querySelector('.mapboxgl-ctrl-geocoder');
+            
             if (container) {
               container.style.width = '100%';
               container.style.maxWidth = '100%';
               container.style.boxShadow = 'none';
+              container.style.fontSize = '16px';
             }
-          }, 100);
+
+            // Style the suggestions dropdown
+            const suggestions = containerRef.current.querySelector('.suggestions-wrapper');
+            if (suggestions) {
+              suggestions.style.zIndex = '1000';
+            }
+          }, 200);
+
+          console.log(`Mapbox autocomplete initialized for ${id}`);
         }
       } catch (error) {
-        console.error('Error initializing Mapbox:', error);
-        setUseRegularInput(true);
+        console.error('Failed to load Mapbox:', error);
+        setShowFallback(true);
       }
     };
 
-    initMapbox();
+    loadMapboxLibraries();
 
     return () => {
-      clearTimeout(fallbackTimeout);
-      if (geocoderRef.current) {
-        try {
-          geocoderRef.current.onRemove();
-        } catch (e) {
-          console.error('Error removing geocoder:', e);
-        }
-        geocoderRef.current = null;
+      if (geocoder) {
+        geocoder.onRemove();
       }
     };
-  }, [useRegularInput]);
+  }, []);
 
-  // Update input value when prop changes
-  useEffect(() => {
-    setInputValue(value || '');
-  }, [value]);
-
-  // If Mapbox failed to load, use regular input
-  if (useRegularInput) {
+  // Fallback regular input if Mapbox fails
+  if (showFallback) {
     return (
       <input
+        ref={inputRef}
         type="text"
         id={id}
         data-testid={testId}
-        value={inputValue}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          onChange(e.target.value);
-        }}
+        value={value || ''}
+        onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        required
         className="w-full bg-transparent border-b-2 border-[#1B1B1B]/20 focus:border-[#B89D62] px-0 py-4 outline-none transition-colors placeholder:text-[#1B1B1B]/40 font-manrope text-[#1B1B1B]"
       />
     );
   }
 
   return (
-    <div ref={containerRef} className="w-full mapbox-autocomplete-container"></div>
+    <div 
+      ref={containerRef}
+      id={id}
+      className="w-full"
+      style={{ position: 'relative' }}
+    />
   );
 };
 
