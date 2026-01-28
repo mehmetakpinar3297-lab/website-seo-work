@@ -67,6 +67,11 @@ textarea:focus {
 }
 
 /* Mapbox Geocoder Custom Styling */
+.mapbox-container {
+  width: 100%;
+  position: relative;
+}
+
 .mapboxgl-ctrl-geocoder {
   width: 100% !important;
   max-width: 100% !important;
@@ -74,6 +79,12 @@ textarea:focus {
   border: none !important;
   background: transparent !important;
   font-family: 'Manrope', sans-serif !important;
+  position: relative !important;
+}
+
+/* Hide any duplicate elements or extra wrappers */
+.mapboxgl-ctrl-geocoder > *:not(.mapboxgl-ctrl-geocoder--input):not(.mapboxgl-ctrl-geocoder--icon-search):not(.mapboxgl-ctrl-geocoder--button):not(.suggestions) {
+  display: none !important;
 }
 
 .mapboxgl-ctrl-geocoder--input {
@@ -86,6 +97,9 @@ textarea:focus {
   font-family: 'Manrope', sans-serif !important;
   background-color: transparent !important;
   color: #1B1B1B !important;
+  display: block !important;
+  height: auto !important;
+  line-height: 1.5 !important;
 }
 
 .mapboxgl-ctrl-geocoder--input:focus {
