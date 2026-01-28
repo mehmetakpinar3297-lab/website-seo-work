@@ -4,69 +4,78 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoibWVobWV0MzI5NyIsImEiOiJjbWt4NzlkNGgwNzBjM2RweHo
 
 const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId, required }) => {
   const containerRef = useRef(null);
-  const geocoderRef = useRef(null);
-  const [isMapboxReady, setIsMapboxReady] = useState(false);
-  const [useFallback, setUseFallback] = useState(false);
+  const [fallbackMode, setFallbackMode] = useState(false);
 
   useEffect(() => {
-    if (useFallback) return;
+    if (fallbackMode || !containerRef.current) return;
 
-    let mounted = true;
+    let geocoder = null;
+    let loadTimeout = null;
 
-    const initMapbox = async () => {
+    const loadMapbox = async () => {
       try {
-        // Load CSS files
-        if (!document.getElementById('mapbox-gl-css')) {
+        console.log(`[${id}] Starting Mapbox initialization...`);
+
+        // Load CSS
+        if (!document.getElementById('mapbox-css')) {
           const link = document.createElement('link');
-          link.id = 'mapbox-gl-css';
+          link.id = 'mapbox-css';
           link.rel = 'stylesheet';
           link.href = 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css';
           document.head.appendChild(link);
         }
 
-        if (!document.getElementById('mapbox-geocoder-css')) {
-          const geocoderCSS = document.createElement('link');
-          geocoderCSS.id = 'mapbox-geocoder-css';
-          geocoderCSS.rel = 'stylesheet';
-          geocoderCSS.href = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css';
-          document.head.appendChild(geocoderCSS);
+        if (!document.getElementById('geocoder-css')) {
+          const link = document.createElement('link');
+          link.id = 'geocoder-css';
+          link.rel = 'stylesheet';
+          link.href = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css';
+          document.head.appendChild(link);
         }
 
-        // Load Mapbox GL JS
+        // Load Mapbox GL
         if (!window.mapboxgl) {
+          console.log(`[${id}] Loading Mapbox GL...`);
           await new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js';
-            script.onload = resolve;
-            script.onerror = reject;
+            script.onload = () => {
+              console.log(`[${id}] Mapbox GL loaded`);
+              resolve();
+            };
+            script.onerror = () => reject(new Error('Failed to load Mapbox GL'));
             document.body.appendChild(script);
           });
         }
 
         // Load Geocoder
         if (!window.MapboxGeocoder) {
+          console.log(`[${id}] Loading Mapbox Geocoder...`);
           await new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js';
-            script.onload = resolve;
-            script.onerror = reject;
+            script.onload = () => {
+              console.log(`[${id}] Mapbox Geocoder loaded`);
+              resolve();
+            };
+            script.onerror = () => reject(new Error('Failed to load Geocoder'));
             document.body.appendChild(script);
           });
         }
 
-        if (!mounted) return;
-
-        // Small delay to ensure libraries are ready
-        await new Promise(resolve => setTimeout(resolve, 100));
+        // Wait for libraries to be ready
+        await new Promise(resolve => setTimeout(resolve, 200));
 
         if (!window.mapboxgl || !window.MapboxGeocoder) {
-          throw new Error('Mapbox libraries failed to load');
+          throw new Error('Mapbox libraries not available');
         }
 
-        // Initialize geocoder
+        // Set access token
         window.mapboxgl.accessToken = MAPBOX_TOKEN;
 
-        const geocoder = new window.MapboxGeocoder({
+        // Create geocoder
+        console.log(`[${id}] Creating geocoder instance...`);
+        geocoder = new window.MapboxGeocoder({
           accessToken: MAPBOX_TOKEN,
           types: 'address,poi',
           countries: 'us',
@@ -74,24 +83,31 @@ const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId, required
           bbox: [-85.605165, 32.839052, -83.109869, 35.000771],
           placeholder: placeholder,
           autocomplete: true,
-          minLength: 2,
-          limit: 5
+          minLength: 2
         });
 
-        if (!containerRef.current || !mounted) return;
-
+        // Add to DOM
+        if (!containerRef.current) return;
+        
         geocoder.addTo(containerRef.current);
-        geocoderRef.current = geocoder;
+        console.log(`[${id}] Geocoder added to DOM`);
 
+        // Handle events
         geocoder.on('result', (e) => {
+          console.log(`[${id}] Address selected:`, e.result.place_name);
           onChange(e.result.place_name);
         });
 
+        geocoder.on('results', (e) => {
+          console.log(`[${id}] Got ${e.features.length} suggestions`);
+        });
+
         geocoder.on('clear', () => {
+          console.log(`[${id}] Input cleared`);
           onChange('');
         });
 
-        // Set initial value if exists
+        // Set initial value
         if (value) {
           setTimeout(() => {
             const input = containerRef.current?.querySelector('.mapboxgl-ctrl-geocoder--input');
@@ -101,53 +117,48 @@ const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId, required
           }, 100);
         }
 
-        // Add required attribute if needed
+        // Add required attribute
         if (required) {
           setTimeout(() => {
             const input = containerRef.current?.querySelector('.mapboxgl-ctrl-geocoder--input');
             if (input) {
               input.setAttribute('required', 'required');
+              input.setAttribute('data-testid', testId);
             }
           }, 100);
         }
 
-        setIsMapboxReady(true);
-        console.log(`✅ Mapbox loaded for ${id}`);
+        console.log(`[${id}] ✅ Autocomplete ready! Type to see suggestions.`);
 
       } catch (error) {
-        console.error('Mapbox initialization failed:', error);
-        if (mounted) {
-          setUseFallback(true);
-        }
+        console.error(`[${id}] Mapbox failed:`, error);
+        setFallbackMode(true);
       }
     };
 
-    // Set timeout for fallback
-    const fallbackTimer = setTimeout(() => {
-      if (!isMapboxReady && mounted) {
-        console.warn(`${id}: Mapbox timeout, using fallback`);
-        setUseFallback(true);
-      }
-    }, 8000);
+    // Start loading with timeout
+    loadTimeout = setTimeout(() => {
+      console.warn(`[${id}] Loading timeout - switching to fallback`);
+      setFallbackMode(true);
+    }, 10000);
 
-    initMapbox();
+    loadMapbox();
 
     return () => {
-      mounted = false;
-      clearTimeout(fallbackTimer);
-      if (geocoderRef.current) {
+      if (loadTimeout) clearTimeout(loadTimeout);
+      if (geocoder) {
         try {
-          geocoderRef.current.onRemove();
+          geocoder.onRemove();
         } catch (e) {
           console.error('Error removing geocoder:', e);
         }
-        geocoderRef.current = null;
       }
     };
-  }, [useFallback]);
+  }, [fallbackMode, id, placeholder, required, testId]);
 
-  // Fallback to regular input if Mapbox fails
-  if (useFallback) {
+  // Fallback input
+  if (fallbackMode) {
+    console.log(`[${id}] Using fallback input`);
     return (
       <input
         type="text"
@@ -162,13 +173,7 @@ const MapboxAutocomplete = ({ id, value, onChange, placeholder, testId, required
     );
   }
 
-  // Render Mapbox container (it will create its own input)
-  return (
-    <div 
-      ref={containerRef}
-      className="w-full mapbox-container"
-    />
-  );
+  return <div ref={containerRef} className="w-full" />;
 };
 
 export default MapboxAutocomplete;
