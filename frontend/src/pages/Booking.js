@@ -277,6 +277,7 @@ export default function Booking() {
                       onChange={(value) => setFormData({ ...formData, pickupLocation: value })}
                       placeholder="Enter pickup address in Atlanta"
                       testId="pickup-location-input"
+                      required={true}
                     />
                   </div>
 
@@ -291,6 +292,7 @@ export default function Booking() {
                       onChange={(value) => setFormData({ ...formData, dropoffLocation: value })}
                       placeholder="Enter drop-off address in Atlanta"
                       testId="dropoff-location-input"
+                      required={true}
                     />
                   </div>
 
