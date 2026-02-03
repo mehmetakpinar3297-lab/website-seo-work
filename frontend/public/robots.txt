@@ -1,0 +1,22 @@
+# robots.txt for atlantahourlyride.com
+# Allow all search engines to index the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://atlantahourlyride.com/sitemap.xml
+
+# Disallow admin or sensitive areas (if any)
+Disallow: /admin/
+Disallow: /api/
+
+# Allow specific important pages
+Allow: /
+Allow: /services
+Allow: /booking
+Allow: /about
+Allow: /contact
+
+# Crawl-delay (optional, adjust if needed)
+Crawl-delay: 1
