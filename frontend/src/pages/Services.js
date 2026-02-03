@@ -1,10 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Plane, Calendar, Briefcase, Users } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Services() {
   return (
-    <div className="min-h-screen bg-[#F5F5F0]">
+    <>
+      <SEO 
+        title="Chauffeur Services Atlanta | Hourly Private Driver | Airport Transfer"
+        description="Professional chauffeur services in Atlanta: hourly private driver, airport transfers, special events, business travel. 2-hour minimum, $75/hour. Available 24/7 throughout Atlanta metro area."
+        keywords="Atlanta chauffeur service, hourly chauffeur Atlanta, airport transfer Atlanta, private driver Atlanta, business chauffeur Atlanta, event transportation Atlanta"
+        canonical="https://atlantahourlyride.com/services"
+      />
+      
+      <div className="min-h-screen bg-[#F5F5F0]">
       {/* Header */}
       <section className="py-24 px-6 md:px-12 bg-white border-b border-[#1B1B1B]/5">
         <div className="max-w-7xl mx-auto">
