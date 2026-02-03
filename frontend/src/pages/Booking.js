@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Calendar, Clock, MapPin, DollarSign, CreditCard } from 'lucide-react';
 import MapboxAutocomplete from '../components/MapboxAutocomplete';
+import SEO from '../components/SEO';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
