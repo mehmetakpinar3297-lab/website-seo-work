@@ -190,7 +190,15 @@ export default function Booking() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F5F0]">
+    <>
+      <SEO 
+        title="Book Your Ride - Atlanta Hourly Chauffeur Service | Reserve Private Driver"
+        description="Book your Atlanta chauffeur service online. Professional private driver available 24/7. Reserve hourly transportation starting at $75/hour with 2-hour minimum. Instant booking confirmation."
+        keywords="book Atlanta chauffeur, reserve private driver Atlanta, Atlanta hourly ride booking, chauffeur service reservation Atlanta"
+        canonical="https://atlantahourlyride.com/booking"
+      />
+      
+      <div className="min-h-screen bg-[#F5F5F0]">
       <div className="py-16 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
