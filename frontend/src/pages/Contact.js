@@ -33,7 +33,15 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F5F0]">
+    <>
+      <SEO 
+        title="Contact Us - Atlanta Chauffeur Service | (929) 867-8846"
+        description="Contact Atlanta Hourly Ride for luxury chauffeur services. Call (929) 867-8846 or email info@atlantahourlyride.com. Available 24/7 for bookings and inquiries in Atlanta metro area."
+        keywords="contact Atlanta chauffeur, Atlanta private driver phone, chauffeur service Atlanta contact, book Atlanta driver"
+        canonical="https://atlantahourlyride.com/contact"
+      />
+      
+      <div className="min-h-screen bg-[#F5F5F0]">
       <div className="py-24 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
