@@ -1,9 +1,18 @@
 import React from 'react';
 import { Shield, Award, Clock } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-[#F5F5F0]">
+    <>
+      <SEO 
+        title="About Us - Professional Chauffeur Service Atlanta | Atlanta Hourly Ride"
+        description="Learn about Atlanta Hourly Ride - Atlanta's premier chauffeur service. Professional drivers, luxury vehicles, 24/7 availability. Safety, professionalism, and cleanliness are our top priorities."
+        keywords="Atlanta chauffeur company, professional drivers Atlanta, luxury transportation Atlanta, about Atlanta Hourly Ride"
+        canonical="https://atlantahourlyride.com/about"
+      />
+      
+      <div className="min-h-screen bg-[#F5F5F0]">
       {/* Hero Section */}
       <section className="py-24 px-6 md:px-12 bg-white border-b border-[#1B1B1B]/5">
         <div className="max-w-7xl mx-auto">
