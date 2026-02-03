@@ -1,10 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Clock, Star, Car } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <>
+      <SEO 
+        title="Atlanta Hourly Ride - Premium Chauffeur Service | Private Driver Atlanta"
+        description="Atlanta's premier hourly chauffeur service. Professional private drivers available 24/7. Book luxury transportation by the hour with 2-hour minimum. Airport transfers, business travel, special events. Starting at $75/hour."
+        keywords="Atlanta hourly ride, Atlanta private driver, Atlanta chauffeur service, luxury chauffeur Atlanta, hourly car service Atlanta, private chauffeur Atlanta, Atlanta airport transfer"
+        canonical="https://atlantahourlyride.com"
+      />
+      
+      <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen">
         <div 
