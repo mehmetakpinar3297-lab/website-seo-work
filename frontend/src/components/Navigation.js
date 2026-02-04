@@ -9,6 +9,7 @@ export default function Navigation() {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/services', label: 'Services' },
+    { path: '/blog', label: 'Blog' },
     { path: '/booking', label: 'Booking' },
     { path: '/about', label: 'About' },
     { path: '/contact', label: 'Contact' }
